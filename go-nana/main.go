@@ -11,6 +11,8 @@ func main() {
 	var remainingTickets int = 50
 	var bookings = []string{}
 
+	greetUsers(conferenceName, conferenceTickets, uint(remainingTickets))
+
 	fmt.Printf("conferenceTickets is %T, remainingTickets is %T, conferenceName is %T\n", conferenceTickets, remainingTickets, conferenceName)
 	fmt.Printf("Welcome to %v booking application\n", conferenceName)
 	fmt.Printf("We have total of %v tickets and %v remaining tickets\n", conferenceTickets, remainingTickets)
@@ -49,15 +51,6 @@ func main() {
 			fmt.Printf("Thank you for purchasing %v tickets.\nYou will receive confirmation email at: %v\n", userTickets, email)
 			fmt.Printf("Remaining tickets: %v\n", remainingTickets)
 
-			firstNames := []string{}
-			for _, booking := range bookings {
-				names := strings.Fields(booking)
-				firstName = names[0]
-				firstNames = append(firstNames, firstName)
-			}
-
-			fmt.Printf("The first names of bookings are: %v\n", firstNames)
-
 			noTicketsRemaining := remainingTickets <= 0
 			if noTicketsRemaining {
 				// end program
@@ -76,5 +69,41 @@ func main() {
 			}
 			// fmt.Println("Your input data is invalid, try again...")
 		}
+
+		firstNames := getFirstNames(bookings)
+		fmt.Println(firstNames)
+
+		city := "london"
+
+		switch city {
+		case "london":
+			fmt.Print("Execute london code")
+		case "singapore":
+			fmt.Print("Execute singapore code")
+		case "berlin":
+			fmt.Print("Execute berlin code")
+		case "mexico city":
+			fmt.Print("Execute mexico city code")
+		case "hong kong":
+			fmt.Print("Execute hong kong code")
+		default:
+			fmt.Print("No valid city selected")
+
+		}
 	}
+}
+
+func greetUsers(confName string, confTickets int, remainingTickets uint) {
+	fmt.Printf("Welcome to %v booking application\n", confName)
+	fmt.Printf("We have a total of %v tickets and %v are still available.\n", confTickets, remainingTickets)
+}
+
+func getFirstNames(bookings []string) []string {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		names := strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	return firstNames
+
 }
